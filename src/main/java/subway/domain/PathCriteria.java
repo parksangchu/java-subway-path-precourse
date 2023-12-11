@@ -19,6 +19,10 @@ public class PathCriteria {
         }
     }
 
+    public boolean isShortestDistance() {
+        return button.equals(SHORTEST_DISTANCE);
+    }
+
     public boolean isGoingBack() {
         return button.equals(GOING_BACK);
     }

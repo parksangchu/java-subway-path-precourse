@@ -4,7 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
-class PathCriteriaTest {
+class PathDistanceRepositoryCriteriaTest {
     @Test
     void create() {
         assertThatThrownBy(() -> new PathCriteria("Q")).isInstanceOf(IllegalArgumentException.class)
