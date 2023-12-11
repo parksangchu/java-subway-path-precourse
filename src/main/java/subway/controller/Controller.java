@@ -1,5 +1,6 @@
 package subway.controller;
 
+import subway.domain.MainMenu;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -13,6 +14,22 @@ public class Controller {
     }
 
     public void start() {
+        outputView.printMainMenu();
+        MainMenu mainMenu = createMainMenu();
+        if (!mainMenu.isQuit()) {
+            outputView.printPathCriteria();
+            
+        }
+    }
 
+    private MainMenu createMainMenu() {
+        while (true) {
+            try {
+                String button = inputView.readButton();
+                return new MainMenu(button);
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e);
+            }
+        }
     }
 }
