@@ -33,22 +33,7 @@ public class Controller {
         while (!mainMenu.isQuit()) {
             outputView.printPathCriteria();
             PathCriteria pathCriteria = createPathCriteria();
-            if (!pathCriteria.isGoingBack()) {
-                Path path = createPath();
-                if (pathCriteria.isShortestDistance()) {
-                    List<String> shortestPath = PathDistanceRepository.getShortestPath(path);
-                    for (String s : shortestPath) {
-                        System.out.println(s);
-                    }
-                }
-                if (!pathCriteria.isShortestDistance()) {
-                    List<String> shortestPath = PathTimeRepository.getShortestPath(path);
-                    for (String s : shortestPath) {
-                        System.out.println(s);
-                    }
-                }
-
-            }
+            checkPathCriteria(pathCriteria);
             outputView.printMainMenu();
             mainMenu = createMainMenu();
         }
@@ -125,6 +110,16 @@ public class Controller {
         }
     }
 
+    private void checkPathCriteria(PathCriteria pathCriteria) {
+        if (!pathCriteria.isGoingBack()) {
+            Path path = createPath();
+            List<String> shortestPath = createShortestPath(pathCriteria, path);
+            int distance = PathDistanceRepository.getDistance(shortestPath);
+            int time = PathTimeRepository.getTime(shortestPath);
+            outputView.printResult(distance, time, shortestPath);
+        }
+    }
+
     private Station createDepartureStation() {
         while (true) {
             try {
@@ -157,5 +152,12 @@ public class Controller {
                 outputView.printError(e);
             }
         }
+    }
+
+    private List<String> createShortestPath(PathCriteria pathCriteria, Path path) {
+        if (pathCriteria.isShortestDistance()) {
+            return PathDistanceRepository.getShortestPath(path);
+        }
+        return PathTimeRepository.getShortestPath(path);
     }
 }
