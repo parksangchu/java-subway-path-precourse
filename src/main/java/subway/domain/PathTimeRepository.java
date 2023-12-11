@@ -24,4 +24,13 @@ public class PathTimeRepository {
         DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(pathGroup);
         return dijkstraShortestPath.getPath(path.getDepartureStation(), path.getArrivalStation()).getVertexList();
     }
+
+    public static int getTime(List<String> path) {
+        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(pathGroup);
+        int time = 0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            time += dijkstraShortestPath.getPathWeight(path.get(i), path.get(i + 1));
+        }
+        return time;
+    }
 }

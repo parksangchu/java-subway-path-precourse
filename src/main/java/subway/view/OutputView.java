@@ -15,4 +15,8 @@ public class OutputView {
     public void printPathCriteria() {
         System.out.println(PATH_CRITERIA);
     }
+
+    public void printResult() {
+
+    }
 }

@@ -23,4 +23,13 @@ public class PathDistanceRepository {
         DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(pathGroup);
         return dijkstraShortestPath.getPath(path.getDepartureStation(), path.getArrivalStation()).getVertexList();
     }
+
+    public static int getDistance(List<String> path) {
+        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(pathGroup);
+        int distance = 0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            distance += dijkstraShortestPath.getPathWeight(path.get(i), path.get(i + 1));
+        }
+        return distance;
+    }
 }
