@@ -1,5 +1,6 @@
 package subway.controller;
 
+import java.util.List;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.MainMenu;
@@ -34,6 +35,21 @@ public class Controller {
             if (!pathCriteria.isGoingBack()) {
                 Station departureStation = createDepartureStation();
                 Station arrivalStation = createArrivalStation();
+                if (pathCriteria.isShortestDistance()) {
+                    List<String> shortestPath = PathDistanceRepository.getShortestPath(departureStation.getName(),
+                            arrivalStation.getName());
+                    for (String s : shortestPath) {
+                        System.out.println(s);
+                    }
+                }
+                if (!pathCriteria.isShortestDistance()) {
+                    List<String> shortestPath = PathTimeRepository.getShortestPath(departureStation.getName(),
+                            arrivalStation.getName());
+                    for (String s : shortestPath) {
+                        System.out.println(s);
+                    }
+                }
+
             }
             outputView.printMainMenu();
             mainMenu = createMainMenu();
