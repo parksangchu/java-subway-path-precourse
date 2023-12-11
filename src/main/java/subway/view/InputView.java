@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class InputView {
     private static final String AKS_BUTTON = "\n## 원하는 기능을 선택하세요.";
+    private static final String ASK_DEPARTURE_STATION = "\n## 출발역을 입력하세요.";
 
     private final Scanner scanner;
 
@@ -15,4 +16,10 @@ public class InputView {
         System.out.println(AKS_BUTTON);
         return scanner.nextLine();
     }
+
+    public String readDepartureStation() {
+        System.out.println(ASK_DEPARTURE_STATION);
+        return scanner.nextLine();
+    }
+
 }

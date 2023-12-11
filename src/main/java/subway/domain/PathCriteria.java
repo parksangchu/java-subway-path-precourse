@@ -18,4 +18,8 @@ public class PathCriteria {
             throw new IllegalArgumentException(BUTTON_ERROR);
         }
     }
+
+    public boolean isGoingBack() {
+        return button.equals(GOING_BACK);
+    }
 }
