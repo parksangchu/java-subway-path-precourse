@@ -15,7 +15,7 @@ public class Path {
 
     private void validateName(List<Station> stations) {
         if (stations.stream()
-                .noneMatch(StationRepository::contains)) {
+                .anyMatch(station -> !StationRepository.contains(station))) {
             throw new IllegalArgumentException(NAME_ERROR);
         }
     }
@@ -26,5 +26,13 @@ public class Path {
                 .count() != stations.size()) {
             throw new IllegalArgumentException(DUPLICATED_ERROR);
         }
+    }
+
+    public String getDepartureStation() {
+        return stations.get(0).getName();
+    }
+
+    public String getArrivalStation() {
+        return stations.get(1).getName();
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.MainMenu;
+import subway.domain.Path;
 import subway.domain.PathCriteria;
 import subway.domain.PathDistanceRepository;
 import subway.domain.PathTimeRepository;
@@ -33,18 +34,15 @@ public class Controller {
             outputView.printPathCriteria();
             PathCriteria pathCriteria = createPathCriteria();
             if (!pathCriteria.isGoingBack()) {
-                Station departureStation = createDepartureStation();
-                Station arrivalStation = createArrivalStation();
+                Path path = createPath();
                 if (pathCriteria.isShortestDistance()) {
-                    List<String> shortestPath = PathDistanceRepository.getShortestPath(departureStation.getName(),
-                            arrivalStation.getName());
+                    List<String> shortestPath = PathDistanceRepository.getShortestPath(path);
                     for (String s : shortestPath) {
                         System.out.println(s);
                     }
                 }
                 if (!pathCriteria.isShortestDistance()) {
-                    List<String> shortestPath = PathTimeRepository.getShortestPath(departureStation.getName(),
-                            arrivalStation.getName());
+                    List<String> shortestPath = PathTimeRepository.getShortestPath(path);
                     for (String s : shortestPath) {
                         System.out.println(s);
                     }
@@ -143,6 +141,18 @@ public class Controller {
             try {
                 String name = inputView.readArrivalStation();
                 return new Station(name);
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e);
+            }
+        }
+    }
+
+    private Path createPath() {
+        while (true) {
+            try {
+                Station departureStation = createDepartureStation();
+                Station arrivalStation = createArrivalStation();
+                return new Path(List.of(departureStation, arrivalStation));
             } catch (IllegalArgumentException e) {
                 outputView.printError(e);
             }

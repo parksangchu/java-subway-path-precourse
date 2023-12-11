@@ -19,8 +19,8 @@ public class PathDistanceRepository {
         pathGroup.setEdgeWeight(pathGroup.addEdge(departureStation, arrivalStation), interval);
     }
 
-    public static List<String> getShortestPath(String departureStation, String arrivalStation) {
+    public static List<String> getShortestPath(Path path) {
         DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(pathGroup);
-        return dijkstraShortestPath.getPath(departureStation, arrivalStation).getVertexList();
+        return dijkstraShortestPath.getPath(path.getDepartureStation(), path.getArrivalStation()).getVertexList();
     }
 }
